@@ -1,11 +1,29 @@
 {
-  "name": "kandy-nodejs",
+  "name": "Kandy",
   "version": "1.2.0",
-  "private": true,
-  "scripts": {
-    "start": "app.js"
-  },
+  "description": "Kandy nodejs module",
+  "main": "./lib/kandy",
   "dependencies": {
     "node-rest-client": "~1.5.0"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khoadp/kandy-nodejs"
+  },
+  "keywords": [
+    "webrtc",
+    "video",
+    "call",
+    "conference",
+    "streaming",
+    "kandy"
+  ],
+  "author": "Genband",
+  "bugs": {
+    "url": "https://github.com/khoadp/kandy-nodejs/issues"
+  },
+  "homepage": "https://github.com/khoadp/kandy-nodejs"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Kandy",
+  "name": "kandy",
   "version": "1.2.0",
   "description": "Kandy nodejs module",
   "main": "./lib/kandy",

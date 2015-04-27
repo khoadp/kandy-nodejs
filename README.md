@@ -14,21 +14,19 @@ $ npm install kandy
 
 ### Send SMS
 
-Client has 2 ways to call a REST service: direct or using registered methods
-
 ```javascript
 var apiKey = "API_KEY"; // Get from kandy.io
 var domainApiSecret = "DOMAIN_API_SECRET"; // Get from kandy.io
+var userId = "USER_ID"; // Get from kandy.io
 
 var Kandy = require('../lib/kandy.js');
 var kandy = new Kandy(apiKey, domainApiSecret);
 
 // SMS params
-var userId = "USER_ID"; // Get from kandy.io
 var to  = "+1408*******";
 var from  = "+1408*******";
 var text = "Hello from Kandy";
 
-kandy.sendSmS(userId, from, to, text);
+kandy.sendSmS(from, to, text);
 
 ```

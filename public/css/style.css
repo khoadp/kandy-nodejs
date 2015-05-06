@@ -1,0 +1,19 @@
+#login-form, #logged-in {
+    background: white;
+    padding: 10px 20px 20px 20px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.24);
+    border-radius: 4px;
+}
+#app-details {
+    padding: 8px;
+}
+.form-group label.required abbr {
+    color: red;
+}
+#logout-btn {
+    margin-left: 4px;
+    margin-top: 4px;
+}
+.logout-wrapper {
+    margin-top: 10px;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kandy | Send SMS</title>
+    <title>Kandy | IBM Bluemix App | Send SMS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
     <!--Load Bootstrap CSS (optional)-->
@@ -16,122 +16,21 @@
     <link rel="stylesheet" media="screen"
           href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-minimal.css"/>
 
-    <script type="text/javascript">
-        $(function () {
-            var currentMessageType = '';
-            var showMessage = function(message, type) {
-                $('.alert-message-wrapper .message').html(message);
-
-                $('.alert-message-wrapper').removeClass(currentMessageType);
-                currentMessageType = 'alert-' + (type == 'error' ? 'danger' : 'success') ;
-                $('.alert-message-wrapper').addClass(currentMessageType).show();
-            };
-
-            var hideMessage = function() {
-                $('.alert-message-wrapper').hide();
-            };
-
-            $('.alert-message-wrapper button.close').on('click', function(){
-                hideMessage();
-            });
-
-            $('#login-btn').on('click', function () {
-                var apiKey = $('#api_key').val();
-                var userId = $('#username').val();
-                var password = $('#password').val();
-                $.ajax({
-                        dataType: 'json',
-                        data: {apiKey: apiKey, userId: userId, password: password},
-                        url: 'getUserAccessToken',
-                        type: 'GET'
-                    })
-                    .done(function (data) {
-                        if (data.message != 'success') {
-                            showMessage('Login Failed.', 'error');
-
-                        } else {
-                            onLoginSuccess(userId, data.result.user_access_token);
-                        }
-                    })
-                    .fail(function () {
-                        showMessage('Sorry, there was an error with your request!', 'error');
-                    })
-                    .always(function() {
-
-                    });
-
-                return false;
-            });
-
-            var onLoginSuccess = function(userId, userAccessToken) {
-                sessionStorage['user_access_token'] = userAccessToken;
-                sessionStorage['user_id'] = userId;
-                // UI
-                $('#login-form').addClass('hidden');
-                $('#login-form')[0].reset();
-                $('#logged-in').removeClass('hidden');
-                $('.username').text(userId);
-                hideMessage();
-            };
-
-            var userAccessToken = sessionStorage['user_access_token'];
-            if (userAccessToken != undefined) {
-                onLoginSuccess(sessionStorage['user_id'], userAccessToken);
-            }
-
-            $('#logout-btn').on('click', function(){
-                onLogoutSuccess();
-            });
-
-            var onLogoutSuccess = function() {
-                sessionStorage.removeItem('user_access_token');
-                sessionStorage.removeItem('user_id');
-                // UI
-                $('#login-form').removeClass('hidden');
-                $('#logged-in').addClass('hidden');
-                $('.username').text('');
-                hideMessage();
-            };
-
-            $('#send-btn').on('click', function () {
-                var from = $('#sms_from').val();
-                var to = $('#sms_to').val();
-                var message = $('#sms_message').val();
-                if (to == '' || message == '') {
-                    showMessage('All fields marked * are required.', 'error');
-                    return false;
-                }
-                $.ajax({
-                    dataType: 'json',
-                    data: {userAccessToken: userAccessToken, from: from, to: to, text: message},
-                    url: 'sms',
-                    type: 'GET'
-                })
-                        .done(function (data) {
-                            if (data.message != 'success') {
-                                showMessage('Failed!', 'error');
-                            } else {
-                                showMessage('The message has been sent!', 'success');
-                            }
-                        })
-                        .fail(function () {
-                            alert('Sorry, there was an error with your request!');
-                        })
-                        .always(function() {
-
-                        });
-                return false;
-            });
-        });
-    </script>
+    <!--Custom css-->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!--Js for example-->
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3" id="activity-container">
-            <div id="app-details">
+            <div id="app-details" class="clearfix">
+                <div class="col-md-6">
+                    <img src="https://www.kandy.io/assets/kandy_logo-072ca87958c5dca2a17fa5093af3e83f.png">
+                </div>
                 <h1 class="h2">
-                    IBM Bluemix Sample App: Send SMS
+                    IBM Bluemix App
                 </h1>
             </div>
 
@@ -141,51 +40,51 @@
             </div>
 
             <form id="login-form" class="simple_form form-horizontal" novalidate="novalidate" action=""
-                  accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;"/><input
-                    type="hidden" name="authenticity_token"
-                    value="TsQ4iTrGkqZ0M/ET/5ySJhQIIH9UpbW8XRzmAzmTi3ajHZZ5vsHVc6ve8aOoh8GTcOSsYFxXt4TeaqNkaLPk2g=="/>
-
+                  accept-charset="UTF-8" method="post">
+                <h3 class="text-center">Login</h3>
+                <hr>
                 <div class="form-group string required quick_start_login_api_key"><label
-                        class="string required col-sm-3 control-label" for="api_key"><abbr title="required">*</abbr>
+                        class="string required col-sm-4 control-label" for="api_key"><abbr title="required">*</abbr>
                     Project API Key</label>
 
-                    <div class="col-sm-9"><input id="api_key" name="api_key" class="string required form-control"
+                    <div class="col-sm-8"><input id="api_key" name="api_key" class="string required form-control"
                                                  type="text"/></div>
                 </div>
                 <div class="form-group string required quick_start_login_username"><label
-                        class="string required col-sm-3 control-label" for="username"><abbr title="required">*</abbr>
+                        class="string required col-sm-4 control-label" for="username"><abbr title="required">*</abbr>
                     Username</label>
 
-                    <div class="col-sm-9"><input id="username" name="username" class="string required form-control"
+                    <div class="col-sm-8"><input id="username" name="username" class="string required form-control"
                                                  type="text"/></div>
                 </div>
                 <div class="form-group password required quick_start_login_password"><label
-                        class="password required col-sm-3 control-label" for="password"><abbr title="required">*</abbr>
+                        class="password required col-sm-4 control-label" for="password"><abbr title="required">*</abbr>
                     Password</label>
 
-                    <div class="col-sm-9"><input id="password" name="password" class="password required form-control"
+                    <div class="col-sm-8"><input id="password" name="password" class="password required form-control"
                                                  type="password"/></div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
+                    <div class="col-sm-offset-4 col-sm-8">
                         <input type="button" name="commit" value="Login" id="login-btn" class="btn btn-success"/>
 
                     </div>
                 </div>
             </form>
             <div class="hidden" id="logged-in">
-                <hr/>
                 <div class="clearfix">
-                    <p class="h4 pull-left">
-                        <strong>Hello <span class="username"></span></strong>
-                    </p>
-                    <button class="btn btn-danger pull-right" id="logout-btn">Logout</button>
+                    <h3 class="text-center pull-left">Send SMS</h3>
+
+                    <div class="pull-right logout-wrapper">
+                        <button class="btn btn-danger btn-sm pull-right" id="logout-btn">Logout</button>
+                        <p class="h4 pull-right">
+                            Welcome <strong><span class="username"></span></strong>
+                        </p>
+                    </div>
                 </div>
                 <hr/>
                 <div id="sms-container">
-                    <div id="sms-messages"></div>
-                    <hr/>
                     <div id="sms-input">
                         <div class="form-group">
                             <label for="sms_from">Sender</label>

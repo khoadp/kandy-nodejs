@@ -55,9 +55,9 @@ $(function () {
         hideMessage();
     };
 
-    var userAccessToken = sessionStorage['user_access_token'];
-    if (userAccessToken != undefined) {
-        onLoginSuccess(sessionStorage['user_id'], userAccessToken);
+    // Handle refresh page
+    if (sessionStorage['user_access_token'] != undefined) {
+        onLoginSuccess(sessionStorage['user_id'], sessionStorage['user_access_token']);
     }
 
     $('#logout-btn').on('click', function(){
@@ -84,7 +84,7 @@ $(function () {
         }
         $.ajax({
             dataType: 'json',
-            data: {userAccessToken: userAccessToken, from: from, to: to, text: message},
+            data: {userAccessToken: sessionStorage['user_access_token'], from: from, to: to, text: message},
             url: 'sms',
             type: 'GET'
         })

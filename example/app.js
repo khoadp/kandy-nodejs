@@ -26,6 +26,12 @@ app.get('/getUserAccessToken', function (request, response) {
     var userId = request.query.userId;
     var password = request.query.password;
 
+    if (typeof apiKey == "undefined" || apiKey == ''
+        || typeof userId == "undefined" || userId == ''
+        || typeof password == "undefined" || password == '') {
+        response.send('{"message":"API Key, User Id and Password are required"}');
+    }
+
     var kandy = new Kandy(apiKey);
 
     kandy.getUserAccessToken(userId, password, function (data, res) {
@@ -40,6 +46,12 @@ app.get('/sms', function (request, response) {
     var from = request.query.from;
     var to = request.query.to;
     var text = request.query.text;
+
+    if (typeof userAccessToken == "undefined" || userAccessToken == ''
+        || typeof to == "undefined" || to == ''
+        || typeof text == "undefined" || text == '') {
+        response.send('{"message":"User Access Token, To and Text are required"}');
+    }
 
     var kandy = new Kandy();
 

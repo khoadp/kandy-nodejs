@@ -1,25 +1,35 @@
 $(function () {
     var currentMessageType = '';
-    var showMessage = function(message, type) {
+    var showMessage = function (message, type) {
         $('.alert-message-wrapper .message').html(message);
 
         $('.alert-message-wrapper').removeClass(currentMessageType);
-        currentMessageType = 'alert-' + (type == 'error' ? 'danger' : 'success') ;
+        currentMessageType = 'alert-' + (type == 'error' ? 'danger' : 'success');
         $('.alert-message-wrapper').addClass(currentMessageType).show();
     };
 
-    var hideMessage = function() {
+    var hideMessage = function () {
         $('.alert-message-wrapper').hide();
     };
 
-    $('.alert-message-wrapper button.close').on('click', function(){
+    $('.alert-message-wrapper button.close').on('click', function () {
         hideMessage();
     });
 
+    var disableButton = function (btn) {
+        btn.attr('disabled', true);
+    };
+
+    var enableButton = function (btn) {
+        btn.removeAttr('disabled');
+    };
+
     $('#login-btn').on('click', function () {
+        var me = $(this);
         var apiKey = $('#api_key').val();
         var userId = $('#username').val();
         var password = $('#password').val();
+        disableButton(me);
         $.ajax({
             dataType: 'json',
             data: {apiKey: apiKey, userId: userId, password: password},
@@ -29,7 +39,6 @@ $(function () {
             .done(function (data) {
                 if (data.message != 'success') {
                     showMessage('Login failed! Please check your login credentials.', 'error');
-
                 } else {
                     onLoginSuccess(userId, data.result.user_access_token);
                 }
@@ -37,14 +46,14 @@ $(function () {
             .fail(function () {
                 showMessage('Sorry, there was an error with your request!', 'error');
             })
-            .always(function() {
-
+            .always(function () {
+                enableButton(me);
             });
 
         return false;
     });
 
-    var onLoginSuccess = function(userId, userAccessToken) {
+    var onLoginSuccess = function (userId, userAccessToken) {
         sessionStorage['user_access_token'] = userAccessToken;
         sessionStorage['user_id'] = userId;
         // UI
@@ -60,11 +69,11 @@ $(function () {
         onLoginSuccess(sessionStorage['user_id'], sessionStorage['user_access_token']);
     }
 
-    $('#logout-btn').on('click', function(){
+    $('#logout-btn').on('click', function () {
         onLogoutSuccess();
     });
 
-    var onLogoutSuccess = function() {
+    var onLogoutSuccess = function () {
         sessionStorage.removeItem('user_access_token');
         sessionStorage.removeItem('user_id');
         // UI
@@ -75,6 +84,7 @@ $(function () {
     };
 
     $('#send-btn').on('click', function () {
+        var me = $(this);
         var from = $('#sms_from').val();
         var to = $('#sms_to').val();
         var message = $('#sms_message').val();
@@ -82,6 +92,7 @@ $(function () {
             showMessage('Please input fields marked (*).', 'error');
             return false;
         }
+        disableButton(me);
         $.ajax({
             dataType: 'json',
             data: {userAccessToken: sessionStorage['user_access_token'], from: from, to: to, text: message},
@@ -99,7 +110,7 @@ $(function () {
                 alert('Sorry, there was an error with your request!');
             })
             .always(function () {
-
+                enableButton(me);
             });
         return false;
     });

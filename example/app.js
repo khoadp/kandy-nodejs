@@ -30,6 +30,7 @@ app.get('/getUserAccessToken', function (request, response) {
         || typeof userId == "undefined" || userId == ''
         || typeof password == "undefined" || password == '') {
         response.send('{"message":"API Key, User Id and Password are required"}');
+        return;
     }
 
     var kandy = new Kandy(apiKey);
@@ -51,6 +52,7 @@ app.get('/sms', function (request, response) {
         || typeof to == "undefined" || to == ''
         || typeof text == "undefined" || text == '') {
         response.send('{"message":"User Access Token, To and Text are required"}');
+        return;
     }
 
     var kandy = new Kandy();

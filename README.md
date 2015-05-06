@@ -1,6 +1,6 @@
 # Nodejs module for Kandy
 
-This Nodejs module encapsulates Kandy Restful APIs. Kandy is a product by GENBAND (www.genband.com) that utilizes WebRTC to enable peer to peer audio and video calls and chat. SMS and PSTN calling support will be added to this module in the near future.
+This Nodejs module encapsulates Kandy Restful APIs. Kandy is a product by GENBAND (www.genband.com) that utilizes WebRTC to enable peer to peer audio and video calls and chat.
 
 With this module, you can send SMS to a number. We are working on video, audio call, chat, ...
 

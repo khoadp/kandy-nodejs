@@ -1,13 +1,13 @@
-var apiKey = "API_KEY"; // Get from kandy.io
-var domainApiSecret = "DOMAIN_API_SECRET"; // Get from kandy.io
-var userId = "USER_ID"; // Get from kandy.io
+var userAccessToken = "USER_ACCESS_TOKEN"; // Get from kandy.getUserAccessToken(...)
 
-var Kandy = require('../lib/kandy.js');
-var kandy = new Kandy(apiKey, domainApiSecret, userId);
+var to = "user2@domain.com"; // Required
+var text = "Hello from Kandy"; // Required
 
-// SMS params
-var to  = "+1408*******";
-var from  = "+1408*******";
-var text = "Hello from Kandy";
+var kandy = new Kandy();
 
-kandy.sendSmS(from, to, text);
+kandy.sendIm(userAccessToken, to, text, function (data, response) {
+      var dataJson = JSON.parse(data);
+      if (dataJson.message == "success") {
+          console.log("Sent to " + to + ": " + text);
+      }
+});

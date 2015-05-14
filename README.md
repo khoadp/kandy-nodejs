@@ -97,3 +97,32 @@ kandy.getAddressbook(userAccessToken, function (data, response) {
 });
 
 ```
+
+### Get Domain Access Token
+
+```javascript
+var apiKey = "API_KEY"; // Get from kandy.io
+var domainApiSecret = "DOMAIN_API_SECRET"; // Get from kandy.io
+
+var kandy = new Kandy(apiKey, domainApiSecret);
+
+kandy.getDomainAccessToken(function (data, response) {
+      var dataJson = JSON.parse(data);
+      console.log(dataJson);
+});
+
+```
+
+### Get List Users
+
+```javascript
+var domainAccessToken = "DOMAIN_ACCESS_TOKEN"; // Get from kandy.getDomainAccessToken(...)
+
+var kandy = new Kandy();
+
+kandy.getListUsers(domainAccessToken, function (data, response) {
+      var dataJson = JSON.parse(data);
+      console.log(dataJson);
+});
+
+```

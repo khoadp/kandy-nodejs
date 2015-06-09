@@ -1,6 +1,6 @@
 {
   "name": "kandy",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Kandy nodejs module",
   "main": "./lib/kandy",
   "dependencies": {
